@@ -81,13 +81,16 @@ class Car {
     this.odometer = 0;
   }
   fill(gallons){
-    this.tank = this.tank + gallons
+    return this.tank = this.tank + gallons
   }
   drive(distance){
-    this.odometer = this.odometer + distance
-    this.tank = this.tank - (distance/this.milesPerGallon)
-    if(this.tank === 0){
-      return `I ran out of fuel at ${distance} miles!`
+    if(this.tank > (distance/this.milesPerGallon)){
+      this.odometer += distance;
+      this.tank -= (distance/this.milesPerGallon);
+    } else if(this.tank <= (distance/this.milesPerGallon)){
+      this.odometer = this.odometer + (this.tank * this.milesPerGallon);
+      this.tank -= this.tank;
+      return `I ran out of fuel at ${this.odometer} miles!`
     }
   }
 }
@@ -167,13 +170,13 @@ class Student extends Lambdasian{
     this.favSubjects = attributes.favSubjects
   }
   listSubjects(){
-    return `Loving ${this.favSubjects.join}!`
+    return `Loving ${this.favSubjects.join(', ')}!`
   }
-  PRAssignment(student, subject){
-    return `${student.name} has submitted a PR for ${subject}`
+  PRAssignment(subject){
+    return `${this.name} has submitted a PR for ${subject}`
   }
-  sprintChallenge(student, subject){
-    `${student.name} has begun sprint challenge on ${subject}`
+  sprintChallenge(subject){
+    return `${this.name} has begun sprint challenge on ${subject}`
   }
 }
 
@@ -196,11 +199,11 @@ class ProjectManager extends Instructor{
       this.gradClassName = attributes.gradClassName
       this.favInstructor = attributes.favInstructor
   }
-  standUp(slackChannel){
-    return `${slackChannel.name} announces to ${slackChannel.channel}, @channel standy times!`
+  standUp(channel){
+    return `${this.name} announces to ${channel}, @channel standy times!`
   }
-  debugsCode(student1, student2, subject){
-    return `${student1.name} debugs ${student2.name}'s code on ${subject}`
+  debugsCode(student, subject){
+    return `${this.name} debugs ${student.name}'s code on ${subject}`
   }
 }
 
